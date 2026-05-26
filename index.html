@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>양구문화관광 - 양구올구양</title>
     <meta name="description" content="한반도의 배꼽, 청정 양구의 문화관광 정보를 안내합니다. 주요 관광지, 축제, 체험 정보를 확인하세요.">
+    <meta name="naver-site-verification" content="79edc1620f75f3ebeb8674f77e74435f9a42cd1e" />
+    <meta name="google-site-verification" content="ClmIiTq5rTD043HpKIIFCsi1sNQnl1bfOAo5dmAW1q8" />
     
     <link rel="stylesheet" href="styles.css">
     
@@ -676,6 +678,74 @@
         </div>
     </section>
 
+    <!-- Reservation / Contact Section -->
+    <section class="reservation section-padding" id="reservation">
+        <div class="container">
+            <div class="section-header reveal text-center">
+                <h2>통합 <span>예약 및 문의</span></h2>
+                <p>시티투어, 체험 학습, 단체 관광 등 궁금하신 점을 문의해 주시면 이메일로 친절히 답변해 드립니다.</p>
+            </div>
+            
+            <div class="reservation-container reveal">
+                <div class="reservation-info-pane">
+                    <h3>양구군 관광 안내</h3>
+                    <p>청정 자연 양구에서의 특별한 여행을 위해 전문 해설사 동행 및 맞춤 코스 상담을 제공합니다.</p>
+                    
+                    <div class="info-contacts">
+                        <div class="contact-item">
+                            <div class="icon"><i class="fa-solid fa-phone"></i></div>
+                            <div class="text">
+                                <strong>안내 전화</strong>
+                                <p>033-480-2629 (양구문화재단)</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="icon"><i class="fa-solid fa-clock"></i></div>
+                            <div class="text">
+                                <strong>운영 시간</strong>
+                                <p>평일 09:00 - 18:00 (주말/공휴일 제외)</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="icon"><i class="fa-solid fa-envelope"></i></div>
+                            <div class="text">
+                                <strong>대표 이메일</strong>
+                                <p>efor416@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reservation-form-pane">
+                    <form id="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="user_name">신청자명 <span class="required">*</span></label>
+                                <input type="text" id="user_name" name="name" placeholder="이름을 입력하세요" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_email">회신 이메일 <span class="required">*</span></label>
+                                <input type="email" id="user_email" name="email" placeholder="example@email.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inquiry_title">문의 분야 / 제목 <span class="required">*</span></label>
+                            <input type="text" id="inquiry_title" name="title" placeholder="예: 시티투어 예약 문의 / 곰취 축제 단체 신청" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">상세 문의 내용 <span class="required">*</span></label>
+                            <textarea id="message" name="message" rows="5" placeholder="문의 사항을 상세히 작성해 주세요" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-submit" id="btn-submit-inquiry">
+                            <span>문의 보내기</span> <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                    <div id="form-status" class="form-status-message"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Banner Section -->
     <section class="banner reveal">
         <div class="banner-content">
@@ -824,6 +894,13 @@
         </div>
     </div>
 
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("9MlSUAStuV4mJRbS_");
+        })();
+    </script>
     <script src="script.js"></script>
 </body>
 </html>

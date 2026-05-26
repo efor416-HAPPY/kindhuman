@@ -155,4 +155,55 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     };
+
+    // --- 10. EmailJS Form Handler ---
+    const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+    const submitBtn = document.getElementById('btn-submit-inquiry');
+
+    if (contactForm && formStatus && submitBtn) {
+        contactForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Show loading / sending state
+            submitBtn.disabled = true;
+            const btnText = submitBtn.querySelector('span');
+            const btnIcon = submitBtn.querySelector('i');
+            
+            if (btnText) btnText.textContent = '전송 중...';
+            if (btnIcon) btnIcon.className = 'fa-solid fa-spinner fa-spin';
+            
+            formStatus.className = 'form-status-message';
+            formStatus.textContent = '';
+
+            // Check if EmailJS SDK is loaded
+            if (typeof emailjs === 'undefined') {
+                formStatus.className = 'form-status-message error';
+                formStatus.textContent = '❌ EmailJS 라이브러리가 로드되지 않았습니다. 광고 차단 프로그램이 실행 중이거나 네트워크 상태를 확인해 주세요.';
+                submitBtn.disabled = false;
+                if (btnText) btnText.textContent = '문의 보내기';
+                if (btnIcon) btnIcon.className = 'fa-solid fa-paper-plane';
+                return;
+            }
+
+            // Send via emailjs (pass public key explicitly as the 4th parameter)
+            emailjs.sendForm('service_gqbezre', 'template_loxffun', '#contact-form', '9MlSUAStuV4mJRbS_')
+                .then(function() {
+                    formStatus.className = 'form-status-message success';
+                    formStatus.textContent = '✉️ 문의가 성공적으로 전송되었습니다! 기재하신 이메일로 빠르게 답변해 드리겠습니다.';
+                    contactForm.reset();
+                }, function(error) {
+                    console.error('EmailJS Send Error:', error);
+                    formStatus.className = 'form-status-message error';
+                    // Show detailed error response from EmailJS so the user knows exactly why
+                    const errorMsg = error.text || error.status || '상세 정보 없음';
+                    formStatus.textContent = `❌ 전송에 실패했습니다. (원인: ${errorMsg}). 계정 설정 및 서비스/템플릿 ID를 확인해 주세요.`;
+                })
+                .finally(function() {
+                    submitBtn.disabled = false;
+                    if (btnText) btnText.textContent = '문의 보내기';
+                    if (btnIcon) btnIcon.className = 'fa-solid fa-paper-plane';
+                });
+        });
+    }
 });
