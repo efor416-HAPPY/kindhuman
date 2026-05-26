@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>양구문화관광 - 양구올구양</title>
+    <meta name="description" content="한반도의 배꼽, 청정 양구의 문화관광 정보를 안내합니다. 주요 관광지, 축제, 체험 정보를 확인하세요.">
+    
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="#">
+                    <span class="logo-icon"><i class="fa-solid fa-leaf"></i></span>
+                    <span class="logo-text">양구올구양</span>
+                </a>
+            </div>
+            
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="#attractions">관광명소</a></li>
+                    <li><a href="#festivals">축제/행사</a></li>
+                    <li><a href="#gomchwi">양구곰취</a></li>
+                    <li><a href="#services">추천여행</a></li>
+                    <li><a href="#reservation">예약하기</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-utils">
+                <div class="lang-selector">
+                    <i class="fa-solid fa-globe"></i> KOR
+                </div>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="메뉴 열기">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav" id="mobile-nav">
+            <button class="close-menu-btn" id="close-menu-btn"><i class="fa-solid fa-times"></i></button>
+            <ul>
+                <li><a href="#attractions" class="mobile-link">관광명소</a></li>
+                <li><a href="#festivals" class="mobile-link">축제/행사</a></li>
+                <li><a href="#gomchwi" class="mobile-link">양구곰취</a></li>
+                <li><a href="#services" class="mobile-link">추천여행</a></li>
+                <li><a href="#reservation" class="mobile-link">예약하기</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <!-- 이미지 경로는 실제 생성된 이미지명으로 렌더링되게 하거나, CSS에서 처리할 수 있습니다. 여기서 임시 스타일을 부여합니다. -->
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2 class="fade-up-1">한반도의 정중앙</h2>
+            <h1 class="fade-up-2">청정 자연의 품, <span>양구</span></h1>
+            <p class="fade-up-3">숨 쉬는 자연, 감동이 있는 문화 관광의 중심지로 여러분을 초대합니다.</p>
+            <div class="hero-buttons fade-up-4">
+                <a href="#attractions" class="btn btn-primary">여행지 탐색 <i class="fa-solid fa-arrow-right"></i></a>
+                <a href="#services" class="btn btn-outline">시티투어 안내</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Services Section -->
+    <section class="quick-services" id="services">
+        <div class="container">
+            <div class="service-grid">
+                <a href="#" class="service-card reveal">
+                    <div class="icon-wrap"><i class="fa-solid fa-bus"></i></div>
+                    <h3>시티투어</h3>
+                    <p>편안하고 안전한 양구 투어</p>
+                </a>
+                <a href="#" class="service-card reveal">
+                    <div class="icon-wrap"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>안보관광</h3>
+                    <p>생생한 분단의 현장 체험</p>
+                </a>
+                <a href="#" class="service-card reveal">
+                    <div class="icon-wrap"><i class="fa-solid fa-campground"></i></div>
+                    <h3>캠핑/숙박</h3>
+                    <p>자연과 함께하는 휴식</p>
+                </a>
+                <a href="#" class="service-card reveal">
+                    <div class="icon-wrap"><i class="fa-solid fa-calendar-check"></i></div>
+                    <h3>통합예약</h3>
+                    <p>원스톱 관광지 예약</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section section-padding" id="video">
+        <div class="container">
+            <div class="section-header reveal text-center">
+                <h2>양구를 <span>영상으로</span> 만나다</h2>
+                <p>아름다운 양구의 모습을 생생하게 감상해보세요.</p>
+            </div>
+            <div class="video-container reveal">
+                <iframe width="100%" height="500" src="https://www.youtube.com/embed/1ogaGDS-Wug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Attractions Section -->
+    <section class="attractions section-padding" id="attractions">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>양구의 <span>주요 명소</span></h2>
+                <p>자연과 역사가 살아 숨 쉬는 아름다운 양구를 만나보세요.</p>
+            </div>
+            
+            <div class="attraction-grid">
+                <!-- Card 1 -->
+                <div class="attraction-card reveal">
+                    <div class="card-img">
+                        <img src="images/duta_valley_1779165026328.png" alt="두타연" id="img-duta" class="dynamic-img">
+                        <div class="card-badge">자연경관</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>두타연</h3>
+                        <p>휴전선 너머로 흘러온 맑은 물과 웅장한 기암괴석이 어우러진 천혜의 비경입니다.</p>
+                        <a href="#" class="read-more">자세히 보기 <i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="attraction-card reveal" style="transition-delay: 0.1s;">
+                    <div class="card-img">
+                        <img src="images/korea_island_1779165040284.png" alt="한반도섬" id="img-island" class="dynamic-img">
+                        <div class="card-badge">랜드마크</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>한반도섬</h3>
+                        <p>파로호 상류에 한반도 모양으로 조성된 인공섬으로, 산책로와 전망대가 일품입니다.</p>
+                        <a href="#" class="read-more">자세히 보기 <i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="attraction-card reveal" style="transition-delay: 0.2s;">
+                    <div class="card-img">
+                        <img src="images/observatory_night_1779165054197.png" alt="국토정중앙천문대" id="img-observatory" class="dynamic-img">
+                        <div class="card-badge">체험/전시</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>국토정중앙천문대</h3>
+                        <p>우리나라 국토의 정중앙에서 가장 아름다운 밤하늘의 별을 관측할 수 있습니다.</p>
+                        <a href="#" class="read-more">자세히 보기 <i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Festivals Section -->
+    <section class="festivals section-padding" id="festivals">
+        <div class="container">
+            <div class="section-header reveal text-center">
+                <h2>다채로운 <span>축제와 행사</span></h2>
+                <p>사계절 내내 즐거움이 가득한 양구의 축제에 참여하세요.</p>
+            </div>
+            
+            <div class="festival-content reveal">
+                <div class="festival-featured">
+                    <div class="festival-info">
+                        <span class="festival-date">매년 8월 중</span>
+                        <h3>청춘양구 배꼽축제</h3>
+                        <p>국토의 정중앙, 한반도의 배꼽 양구에서 열리는 가장 신나는 여름 축제. 다채로운 공연과 체험행사, 그리고 시원한 물놀이가 기다립니다.</p>
+                        <ul class="festival-features">
+                            <li><i class="fa-solid fa-check"></i> 물놀이 워터존 운영</li>
+                            <li><i class="fa-solid fa-check"></i> 인기가수 축하공연</li>
+                            <li><i class="fa-solid fa-check"></i> 특산물 판매 장터</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">축제 상세정보</a>
+                    </div>
+                </div>
+                <div class="festival-list">
+                    <div class="festival-item">
+                        <div class="date-box">
+                            <span class="month">5월</span>
+                            <span class="day">곰취</span>
+                        </div>
+                        <div class="item-info">
+                            <h4>양구 곰취축제</h4>
+                            <p>봄 내음 가득한 명품 곰취를 맛보는 시간</p>
+                        </div>
+                    </div>
+                    <div class="festival-item">
+                        <div class="date-box">
+                            <span class="month">10월 말</span>
+                            <span class="day" style="font-size: 0.85rem; line-height: 1.2; padding-top: 5px;">시래기<br>사과</span>
+                        </div>
+                        <div class="item-info">
+                            <h4>청춘양구 펀치볼 시래기사과축제</h4>
+                            <p>청정 펀치볼 시래기와 일교차가 만든 꿀사과의 특별한 만남</p>
+                        </div>
+                    </div>
+                    <div class="festival-item">
+                        <div class="date-box">
+                            <span class="month">1월</span>
+                            <span class="day">얼음</span>
+                        </div>
+                        <div class="item-info">
+                            <h4>겨울 얼음낚시 축제</h4>
+                            <p>파로호 맑은 물에서 즐기는 짜릿한 손맛</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gomchwi Specialty Section -->
+    <section class="gomchwi-section section-padding" id="gomchwi">
+        <div class="container">
+            <div class="section-header reveal text-center">
+                <h2>양구의 대표 특산물, <span>양구 곰취</span></h2>
+                <p>깊은 산속의 향을 그대로 머금은 청정 양구의 명품 곰취를 소개합니다.</p>
+            </div>
+            
+            <div class="gomchwi-grid reveal">
+                <div class="gomchwi-image">
+                    <img src="images/gomchwi_fresh.png" alt="양구 곰취" class="gomchwi-img">
+                    <div class="gomchwi-badge"><i class="fa-solid fa-star"></i> 양구 5대 명품</div>
+                </div>
+                <div class="gomchwi-content">
+                    <div class="gomchwi-tag">FISCHER'S RAGWORT</div>
+                    <h3>자연의 향과 맛을 간직한 산나물의 제왕</h3>
+                    <p>양구 곰취는 해발 600m 이상의 고산지대에서 자라나 독특한 향과 쌉싸름한 맛이 일품입니다. 동의보감에도 기록될 만큼 영양이 풍부하여, 봄철 입맛을 돋우고 피로를 해소하는 데 으뜸인 웰빙 식품입니다.</p>
+                    
+                    <div class="gomchwi-features">
+                        <div class="feat-item">
+                            <div class="feat-icon"><i class="fa-solid fa-wind"></i></div>
+                            <div class="feat-text">
+                                <h4>청정 고산지대 재배</h4>
+                                <p>대암산과 펀치볼 등 일교차가 크고 맑은 바람이 부는 청정 환경에서 자라 잎이 부드럽고 향이 깊습니다.</p>
+                            </div>
+                        </div>
+                        <div class="feat-item">
+                            <div class="feat-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <div class="feat-text">
+                                <h4>풍부한 영양과 효능</h4>
+                                <p>비타민 C와 베타카로틴, 칼슘이 풍부하여 면역력 강화, 피로 해소, 혈액 순환 및 항암 효과가 뛰어납니다.</p>
+                            </div>
+                        </div>
+                        <div class="feat-item">
+                            <div class="feat-icon"><i class="fa-solid fa-utensils"></i></div>
+                            <div class="feat-text">
+                                <h4>다양한 요리 활용</h4>
+                                <p>신선한 쌈채소는 물론, 향긋한 곰취 쌈밥, 두고두고 먹는 곰취 장아찌, 고소한 곰취전 등으로 다양하게 즐길 수 있습니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gomchwi-action">
+                        <a href="#festivals" class="btn btn-primary">곰취 축제 알아보기</a>
+                        <a href="#" class="btn btn-outline-dark">구매 문의 및 정보 <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wildflower Experience Section -->
+    <section class="experience section-padding" id="experience">
+        <div class="container">
+            <div class="section-header reveal text-center">
+                <h2>청정 양구 <span>야생화 체험</span></h2>
+                <p>자연이 주는 특별한 선물, 야생화 원료를 체험해보세요.</p>
+            </div>
+            
+            <div class="experience-grid">
+                <!-- 원료개발 -->
+                <div class="experience-card reveal">
+                    <div class="exp-images">
+                        <!-- 사용자가 언급한 이미지 placeholder -->
+                        <img src="images/pollut02.jpg" alt="야생화원료 메인" class="img-main">
+                        <div class="img-sub">
+                            <img src="images/1.jpg" alt="야생화 1">
+                            <img src="images/2.jpg" alt="야생화 2">
+                        </div>
+                    </div>
+                    <div class="exp-content">
+                        <h3>야생화원료개발</h3>
+                        <p>해안야생화공원 또는 전문화훼농가 청정한 환경에서 재배된 야생화를 일상생활에 유용하게 사용하시도록 원료를 개발하고 제공하며 현재는 화장품과 식재료 원료로 제공되고 있습니다.</p>
+                        <div class="contact-info">
+                            <strong>원료구입 및 개발 문의</strong><br>
+                            <i class="fa-solid fa-phone"></i> 연락처 : 033-481-9916<br>
+                            <i class="fa-solid fa-fax"></i> 팩스 : 033-481-9917
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 원료체험 -->
+                <div class="experience-card reveal" style="transition-delay: 0.2s;">
+                    <div class="exp-images single-img">
+                        <img src="images/6.jpg" alt="이색원료체험">
+                    </div>
+                    <div class="exp-content">
+                        <h3>이색원료체험</h3>
+                        <p>고급 화장품 원료와 청정 야생화 추출물을 활용하여 내 피부에 맞는 나만의 화장품을 만들어 가실 수 있는 체험을 시행하고 있습니다. 저렴한 가격의 체험이지만 원료 소재 만큼은 고급원료만을 사용하고 있으며, 운영 기간에 체험 시간 내에 방문하시면 언제든지 체험을 하실 수 있습니다.</p>
+                        <div class="contact-info">
+                            <strong>체험 및 예약문의</strong><br>
+                            <i class="fa-solid fa-phone"></i> 연락처 : 033-481-9918<br>
+                            <i class="fa-solid fa-fax"></i> 팩스 : 033-481-9917
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agritourism Section -->
+    <section class="agritourism section-padding" id="agri">
+        <div class="container">
+            <div class="section-header reveal text-center">
+                <h2>양구의 자산, <span>농촌 체험관광</span></h2>
+                <p>사과와 딸기 등 양구의 맑은 자연이 키운 신선한 농산물을 직접 수확해보세요.</p>
+            </div>
+            
+            <div class="attraction-grid">
+                <!-- Card 1 -->
+                <div class="attraction-card reveal">
+                    <div class="card-img">
+                        <img src="images/farm_apple_1779167840014.png" alt="사과 수확 체험" class="dynamic-img">
+                        <div class="card-badge">농산물 수확</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>명품 꿀사과 수확 체험</h3>
+                        <p>큰 일교차가 만들어낸 당도 높고 아삭한 양구 사과. 가족과 함께 농장에서 직접 따고 맛보는 달콤한 시간을 가져보세요.</p>
+                        <a href="#" class="read-more">예약 안내 <i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="attraction-card reveal" style="transition-delay: 0.1s;">
+                    <div class="card-img">
+                        <img src="images/farm_strawberry_1779167824096.png" alt="딸기 수확 체험" class="dynamic-img">
+                        <div class="card-badge">인기 만점</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>스마트팜 딸기 수확 체험</h3>
+                        <p>깨끗한 스마트팜 시설에서 자란 싱싱하고 달콤한 겨울 딸기. 아이들이 가장 좋아하는 최고의 자연 체험 학습장입니다.</p>
+                        <a href="#" class="read-more">예약 안내 <i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="attraction-card reveal" style="transition-delay: 0.2s;">
+                    <div class="card-img" style="background: linear-gradient(135deg, #e8f5e9, #a5d6a7); display: flex; align-items: center; justify-content: center; font-size: 4rem; color: var(--primary-color);">
+                        <i class="fa-solid fa-leaf"></i>
+                        <div class="card-badge">특산물 체험</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>펀치볼 시래기 덕장 방문</h3>
+                        <p>양구 해안면 펀치볼 지역의 맑은 바람이 얼리고 녹이며 만든 명품 시래기 덕장을 구경하고 따뜻한 시골 밥상을 맛보세요.</p>
+                        <a href="#" class="read-more">상세보기 <i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Winter Workshop Section -->
+    <section class="winter-workshop section-padding" id="winter">
+        <div class="container">
+            <div class="section-header reveal text-center">
+                <h2>추운 겨울, <span>따뜻한 실내 체험</span></h2>
+                <p>가족, 연인, 친구들과 함께 양구의 이색 공방과 실내 전시를 즐겨보세요.</p>
+            </div>
+            
+            <div class="attraction-grid">
+                <!-- Card 1 -->
+                <div class="attraction-card reveal">
+                    <div class="card-img" style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9); display: flex; align-items: center; justify-content: center; font-size: 4rem; color: var(--primary-color);">
+                        <i class="fa-solid fa-hammer"></i>
+                        <div class="card-badge">공예체험</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>양구공예공방</h3>
+                        <p>방짜수저 만들기, 민화 판넬 제작 등 지역 장인과 함께하는 따뜻한 실내 수공예 체험 공간입니다.</p>
+                        <a href="#" class="read-more">상세보기 <i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="attraction-card reveal" style="transition-delay: 0.1s;">
+                    <div class="card-img" style="background: linear-gradient(135deg, #e1f5fe, #b3e5fc); display: flex; align-items: center; justify-content: center; font-size: 4rem; color: var(--secondary-color);">
+                        <i class="fa-solid fa-vase"></i>
+                        <div class="card-badge">도자기체험</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>양구백자박물관</h3>
+                        <p>양구 백자의 역사를 감상하고 물레 체험, 도자기 그리기 등 나만의 도자기를 직접 빚어보는 유익한 시간을 가집니다.</p>
+                        <a href="#" class="read-more">상세보기 <i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="attraction-card reveal" style="transition-delay: 0.2s;">
+                    <div class="card-img" style="background: linear-gradient(135deg, #fff3e0, #ffe0b2); display: flex; align-items: center; justify-content: center; font-size: 4rem; color: #e65100;">
+                        <i class="fa-solid fa-palette"></i>
+                        <div class="card-badge">문화관람</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>박수근 미술관</h3>
+                        <p>추운 겨울을 피해 화백의 따뜻한 작품을 감상하며, 실감형 AR/3D 콘텐츠 라키비움을 체험해보세요.</p>
+                        <a href="#" class="read-more">상세보기 <i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tourist Map Section -->
+    <section class="tour-map section-padding" id="map">
+        <div class="container">
+            <div class="section-header reveal text-center">
+                <h2>한눈에 보는 <span>양구 관광안내지도</span></h2>
+                <p>양구의 다채로운 명소들을 지도로 먼저 만나보세요.</p>
+            </div>
+            <div class="map-container reveal" id="tour-map-btn" title="클릭하여 상세 정보 보기">
+                <img src="images/tour_map.jpg" alt="양구군 관광안내지도" class="full-width-img" style="cursor: pointer;">
+                <div class="map-overlay-text"><i class="fa-solid fa-hand-pointer"></i> 지도를 클릭하면 주소와 연락처를 확인할 수 있습니다</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Travel Course Section -->
+    <section class="travel-course section-padding" id="course">
+        <div class="container">
+            <div class="section-header reveal text-center">
+                <h2>양구 <span>맞춤형 여행 코스</span></h2>
+                <p>DMZ 경제순환센터부터 박수근 어린이미술관까지, 시간별·목적별 완벽한 여행 일정을 확인하세요.</p>
+            </div>
+            
+            <div class="course-tabs reveal">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-target="weekend">주말 1박 2일 코스</button>
+                    <button class="tab-btn" data-target="weekday">평일 당일 코스</button>
+                    <button class="tab-btn" data-target="bus">대중교통(버스) 가이드</button>
+                </div>
+                
+                <div class="tab-content">
+                    <!-- Tab 1: Weekend -->
+                    <div class="tab-pane active" id="weekend">
+                        <div class="timeline">
+                            <div class="timeline-day"><h3>1일차 (가족 체험의 날)</h3></div>
+                            <div class="timeline-item">
+                                <div class="time">10:00</div>
+                                <div class="content">
+                                    <h4>DMZ 경제순환센터 방문</h4>
+                                    <p>양구 지역 창업 생태계와 지역 특산물을 연계한 아이디어 상품들을 구경하며 여행을 시작합니다.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="time">12:00</div>
+                                <div class="content">
+                                    <h4>양구 읍내 점심식사</h4>
+                                    <p>시내에서 양구 명물 시래기 닭갈비 등 든든한 점심 식사.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="time">14:00</div>
+                                <div class="content">
+                                    <h4>박수근 어린이 미술관 & 본관</h4>
+                                    <p>아이들의 눈높이에 맞춘 체험 프로그램과 박수근 화백의 따뜻한 시선이 담긴 작품 감상.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="time">16:30</div>
+                                <div class="content">
+                                    <h4>한반도섬 산책</h4>
+                                    <p>아름다운 파로호 상류의 한반도 지형 인공섬에서 해질녘 여유로운 힐링 산책.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-day" style="margin-top: 30px;"><h3>2일차 (안보와 자연)</h3></div>
+                            <div class="timeline-item">
+                                <div class="time">09:30</div>
+                                <div class="content">
+                                    <h4>두타연 안보관광</h4>
+                                    <p>민간인 통제구역 내 원시 자연의 비경을 간직한 두타연 계곡 트레킹.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="time">13:30</div>
+                                <div class="content">
+                                    <h4>국토정중앙천문대</h4>
+                                    <p>우리나라 중심에서 우주의 신비를 배우고 실내 전시 관람 후 귀가.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tab 2: Weekday -->
+                    <div class="tab-pane" id="weekday">
+                        <div class="timeline">
+                            <div class="timeline-day"><h3>평일 힐링 코스</h3></div>
+                            <div class="timeline-item">
+                                <div class="time">10:00</div>
+                                <div class="content">
+                                    <h4>양구 5일장 또는 중앙시장</h4>
+                                    <p>(매월 5, 10, 15, 20, 25, 30일) 활기 넘치는 장터에서 양구 특산물 구경 및 먹거리 즐기기.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="time">13:00</div>
+                                <div class="content">
+                                    <h4>양구백자박물관</h4>
+                                    <p>양구 백자의 우수성을 알아보고 도자기 만들기 공방 체험 참여.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="time">15:00</div>
+                                <div class="content">
+                                    <h4>양구수목원 & 생태관</h4>
+                                    <p>계절마다 다른 꽃들이 만발하는 수목원과 신기한 생태관 탐방.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="time">17:00</div>
+                                <div class="content">
+                                    <h4>파로호 꽃섬</h4>
+                                    <p>시내와 가까운 꽃섬에서 인생 사진을 남기며 여행 마무리.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tab 3: Bus Info -->
+                    <div class="tab-pane" id="bus">
+                        <div class="bus-info-card">
+                            <h3><i class="fa-solid fa-bus"></i> 뚜벅이를 위한 양구 대중교통 가이드</h3>
+                            <div class="bus-section">
+                                <h4>1. 가장 추천: 양구 시티투어 버스</h4>
+                                <p>넓은 양구 지역을 개별 버스로 다니기엔 제약이 많습니다. <strong>춘천역에서 출발하는 양구 시티투어 버스(금,토,일 운영)</strong>를 예약하시면 박수근미술관, 두타연, 펀치볼 등 주요 핵심 관광지를 가장 편리하고 저렴하게 둘러볼 수 있습니다.</p>
+                            </div>
+                            <div class="bus-section">
+                                <h4>2. 양구 읍내 도보/시내버스 여행</h4>
+                                <p>양구 시외버스터미널 도착 후, 파로호 꽃섬이나 양구 5일장, DMZ 경제순환센터 등은 읍내에서 가깝기 때문에 도보나 단거리 택시 이동을 추천합니다.</p>
+                            </div>
+                            <div class="bus-section">
+                                <h4>3. 농어촌 버스 탑승 팁</h4>
+                                <p>외곽 명소(수목원, 박수근미술관)로 향하는 농어촌 버스는 배차 간격이 넓습니다. 반드시 양구군청 교통정보 홈페이지나 터미널에서 시간표를 확인하고 움직이셔야 하며, 귀가 버스 시간도 미리 체크해 두는 것이 필수입니다.</p>
+                            </div>
+                            <a href="#" class="btn btn-primary" style="margin-top: 15px;">시티투어 사전 예약하기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Banner Section -->
+    <section class="banner reveal">
+        <div class="banner-content">
+            <h2>한반도 평화와 생태의 중심지</h2>
+            <p>지금 바로 양구로 여행을 떠나보세요</p>
+            <a href="#reservation" class="btn btn-light">예약하러 가기</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <span class="logo-icon"><i class="fa-solid fa-leaf"></i></span>
+                    <span class="logo-text">양구올구양</span>
+                </div>
+                <div class="footer-sns">
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="Youtube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" aria-label="Blog"><i class="fa-solid fa-blog"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#">개인정보처리방침</a>
+                <a href="#">이용약관</a>
+                <a href="#">이메일무단수집거부</a>
+                <a href="#">뷰어다운로드</a>
+                <a href="#">저작권정책</a>
+            </div>
+            
+            <div class="footer-info">
+                <p>(24322) 강원특별자치도 양구군 양구읍 관공서로 38</p>
+                <p>관광안내전화: 033-480-2629 (양구군 관광문화과) | 팩스: 033-480-2580</p>
+                <p class="copyright">Copyright © YANGGU COUNTY. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Map Info Modal -->
+    <div class="map-modal" id="map-modal">
+        <div class="map-modal-content">
+            <button class="close-modal" id="close-modal">&times;</button>
+            <div class="modal-tabs">
+                <button class="modal-tab-btn active" data-target="modal-spots">양구 주요 관광지</button>
+                <button class="modal-tab-btn" data-target="modal-foods">양구 모범 음식점</button>
+            </div>
+            
+            <!-- Tourist Spots -->
+            <div class="modal-tab-pane active" id="modal-spots">
+                <div class="modal-list">
+                    <div class="modal-item">
+                        <span class="badge">1경</span>
+                        <div class="info">
+                            <h4>양구수목원</h4>
+                            <p><i class="fa-solid fa-location-dot"></i> 강원 양구군 동면 숨골로310번길 132</p>
+                            <p><i class="fa-solid fa-phone"></i> 033-480-2529</p>
+                        </div>
+                    </div>
+                    <div class="modal-item">
+                        <span class="badge">2경</span>
+                        <div class="info">
+                            <h4>한반도섬</h4>
+                            <p><i class="fa-solid fa-location-dot"></i> 강원 양구군 양구읍 파로호로 869</p>
+                            <p><i class="fa-solid fa-phone"></i> 033-480-2114</p>
+                        </div>
+                    </div>
+                    <div class="modal-item">
+                        <span class="badge">3경</span>
+                        <div class="info">
+                            <h4>두타연</h4>
+                            <p><i class="fa-solid fa-location-dot"></i> 강원 양구군 방산면 두타연로 297</p>
+                            <p><i class="fa-solid fa-phone"></i> 033-480-2251</p>
+                        </div>
+                    </div>
+                    <div class="modal-item">
+                        <span class="badge">4경</span>
+                        <div class="info">
+                            <h4>박수근미술관</h4>
+                            <p><i class="fa-solid fa-location-dot"></i> 강원 양구군 양구읍 박수근로 265-15</p>
+                            <p><i class="fa-solid fa-phone"></i> 033-480-2284</p>
+                        </div>
+                    </div>
+                    <div class="modal-item">
+                        <span class="badge">5경</span>
+                        <div class="info">
+                            <h4>양구백자박물관</h4>
+                            <p><i class="fa-solid fa-location-dot"></i> 강원 양구군 방산면 평화로 5182</p>
+                            <p><i class="fa-solid fa-phone"></i> 033-480-2664</p>
+                        </div>
+                    </div>
+                    <div class="modal-item">
+                        <span class="badge">6경</span>
+                        <div class="info">
+                            <h4>펀치볼 (해안면)</h4>
+                            <p><i class="fa-solid fa-location-dot"></i> 강원 양구군 해안면 해안서화로 35</p>
+                            <p><i class="fa-solid fa-phone"></i> 033-481-8565</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Restaurants -->
+            <div class="modal-tab-pane" id="modal-foods">
+                <div class="modal-list">
+                    <div class="modal-item">
+                        <span class="badge" style="background:#e65100;">한식</span>
+                        <div class="info">
+                            <h4>시래원 (펀치볼 시래기 정식)</h4>
+                            <p><i class="fa-solid fa-location-dot"></i> 강원 양구군 국토정중앙면 봉화산로 457</p>
+                            <p><i class="fa-solid fa-phone"></i> 033-481-4200</p>
+                            <p><i class="fa-solid fa-calendar-xmark"></i> <strong>휴무일:</strong> 매주 월요일</p>
+                        </div>
+                    </div>
+                    <div class="modal-item">
+                        <span class="badge" style="background:#e65100;">막국수</span>
+                        <div class="info">
+                            <h4>광치막국수</h4>
+                            <p><i class="fa-solid fa-location-dot"></i> 강원 양구군 국토정중앙면 남동로 115</p>
+                            <p><i class="fa-solid fa-phone"></i> 033-481-4095</p>
+                            <p><i class="fa-solid fa-calendar-xmark"></i> <strong>휴무일:</strong> 매주 화요일</p>
+                        </div>
+                    </div>
+                    <div class="modal-item">
+                        <span class="badge" style="background:#e65100;">두부요리</span>
+                        <div class="info">
+                            <h4>양구재래식손두부</h4>
+                            <p><i class="fa-solid fa-location-dot"></i> 강원 양구군 양구읍 학안로 6</p>
+                            <p><i class="fa-solid fa-phone"></i> 033-482-4475</p>
+                            <p><i class="fa-solid fa-calendar-xmark"></i> <strong>휴무일:</strong> 매월 1, 3번째 일요일</p>
+                        </div>
+                    </div>
+                    <div class="modal-item">
+                        <span class="badge" style="background:#e65100;">구이류</span>
+                        <div class="info">
+                            <h4>장수오골계 (숯불구이)</h4>
+                            <p><i class="fa-solid fa-location-dot"></i> 강원 양구군 양구읍 밖오미길 13</p>
+                            <p><i class="fa-solid fa-phone"></i> 033-481-8175</p>
+                            <p><i class="fa-solid fa-calendar-xmark"></i> <strong>휴무일:</strong> 연중무휴</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
