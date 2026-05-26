@@ -231,47 +231,155 @@
     <section class="gomchwi-section section-padding" id="gomchwi">
         <div class="container">
             <div class="section-header reveal text-center">
-                <h2>양구의 대표 특산물, <span>양구 곰취</span></h2>
-                <p>깊은 산속의 향을 그대로 머금은 청정 양구의 명품 곰취를 소개합니다.</p>
+                <h2>양구 <span>곰취 종합 홍보관</span></h2>
+                <p>청정 자연의 선물 양구 곰취와 매년 펼쳐지는 싱그러운 축제 소식을 한눈에 확인하세요.</p>
             </div>
             
-            <div class="gomchwi-grid reveal">
-                <div class="gomchwi-image">
-                    <img src="images/gomchwi_fresh.png" alt="양구 곰취" class="gomchwi-img">
-                    <div class="gomchwi-badge"><i class="fa-solid fa-star"></i> 양구 5대 명품</div>
+            <div class="gomchwi-center reveal">
+                <!-- Tabs Navigation -->
+                <div class="gomchwi-tabs-header">
+                    <button class="gomchwi-tab-btn active" data-target="gomchwi-intro">
+                        <i class="fa-solid fa-leaf"></i> 명품 곰취 소개
+                    </button>
+                    <button class="gomchwi-tab-btn" data-target="gomchwi-festival-info">
+                        <i class="fa-solid fa-calendar-days"></i> 곰취 축제 안내
+                    </button>
+                    <button class="gomchwi-tab-btn" data-target="gomchwi-festival-news">
+                        <i class="fa-solid fa-fire"></i> 지난 축제 핫이슈
+                    </button>
                 </div>
-                <div class="gomchwi-content">
-                    <div class="gomchwi-tag">FISCHER'S RAGWORT</div>
-                    <h3>자연의 향과 맛을 간직한 산나물의 제왕</h3>
-                    <p>양구 곰취는 해발 600m 이상의 고산지대에서 자라나 독특한 향과 쌉싸름한 맛이 일품입니다. 동의보감에도 기록될 만큼 영양이 풍부하여, 봄철 입맛을 돋우고 피로를 해소하는 데 으뜸인 웰빙 식품입니다.</p>
-                    
-                    <div class="gomchwi-features">
-                        <div class="feat-item">
-                            <div class="feat-icon"><i class="fa-solid fa-wind"></i></div>
-                            <div class="feat-text">
-                                <h4>청정 고산지대 재배</h4>
-                                <p>대암산과 펀치볼 등 일교차가 크고 맑은 바람이 부는 청정 환경에서 자라 잎이 부드럽고 향이 깊습니다.</p>
+                
+                <div class="gomchwi-tabs-content">
+                    <!-- Tab 1: Introduction -->
+                    <div class="gomchwi-tab-pane active" id="gomchwi-intro">
+                        <div class="gomchwi-intro-grid">
+                            <div class="gomchwi-gallery">
+                                <div class="gallery-main">
+                                    <img src="images/gomchwi_fresh.png" alt="양구 곰취 생잎" id="gomchwi-gallery-main-img">
+                                </div>
+                                <div class="gallery-thumbs">
+                                    <img src="images/gomchwi_fresh.png" alt="양구 곰취 생잎" class="thumb active" onclick="changeGomchwiImage(this.src)">
+                                    <img src="images/gomchwi_harvest.png" alt="곰취 수확 현장" class="thumb" onclick="changeGomchwiImage(this.src)">
+                                    <img src="images/gomchwi_dish.png" alt="곰취 쌈 요리" class="thumb" onclick="changeGomchwiImage(this.src)">
+                                </div>
                             </div>
-                        </div>
-                        <div class="feat-item">
-                            <div class="feat-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-                            <div class="feat-text">
-                                <h4>풍부한 영양과 효능</h4>
-                                <p>비타민 C와 베타카로틴, 칼슘이 풍부하여 면역력 강화, 피로 해소, 혈액 순환 및 항암 효과가 뛰어납니다.</p>
-                            </div>
-                        </div>
-                        <div class="feat-item">
-                            <div class="feat-icon"><i class="fa-solid fa-utensils"></i></div>
-                            <div class="feat-text">
-                                <h4>다양한 요리 활용</h4>
-                                <p>신선한 쌈채소는 물론, 향긋한 곰취 쌈밥, 두고두고 먹는 곰취 장아찌, 고소한 곰취전 등으로 다양하게 즐길 수 있습니다.</p>
+                            
+                            <div class="gomchwi-details">
+                                <span class="badge"><i class="fa-solid fa-star"></i> 양구 5대 명품</span>
+                                <h3>자연의 향과 맛을 간직한 산나물의 제왕</h3>
+                                <p>양구 곰취는 해발 600m 이상의 고산지대에서 자라나 독특한 향과 쌉싸름한 맛이 일품입니다. 동의보감에도 기록될 만큼 영양이 풍부하여, 봄철 입맛을 돋우고 피로를 해소하는 데 으뜸인 웰빙 식품입니다.</p>
+                                
+                                <div class="gomchwi-features">
+                                    <div class="feat-item">
+                                        <div class="feat-icon"><i class="fa-solid fa-wind"></i></div>
+                                        <div class="feat-text">
+                                            <h4>청정 고산지대 재배</h4>
+                                            <p>대암산과 펀치볼 등 일교차가 크고 맑은 바람이 부는 청정 환경에서 자라 잎이 부드럽고 향이 깊습니다.</p>
+                                        </div>
+                                    </div>
+                                    <div class="feat-item">
+                                        <div class="feat-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                                        <div class="feat-text">
+                                            <h4>풍부한 영양과 효능</h4>
+                                            <p>비타민 C와 베타카로틴, 칼슘이 풍부하여 면역력 강화, 피로 해소, 혈액 순환 및 항암 효과가 뛰어납니다.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="gomchwi-action" style="margin-top: 25px;">
+                                    <a href="#reservation" class="btn btn-primary">양구 투어 예약</a>
+                                    <a href="#" class="btn btn-outline-dark">제철 곰취 구매 문의 <i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="gomchwi-action">
-                        <a href="#festivals" class="btn btn-primary">곰취 축제 알아보기</a>
-                        <a href="#" class="btn btn-outline-dark">구매 문의 및 정보 <i class="fa-solid fa-arrow-right"></i></a>
+                    <!-- Tab 2: Festival Info -->
+                    <div class="gomchwi-tab-pane" id="gomchwi-festival-info">
+                        <div class="gomchwi-intro-grid">
+                            <div class="gomchwi-gallery">
+                                <div class="gallery-main">
+                                    <img src="images/gomchwi_festival.png" alt="양구 곰취 축제 현장">
+                                </div>
+                                <div class="festival-banner-info">
+                                    <p><i class="fa-solid fa-location-dot"></i> 강원특별자치도 양구군 레포츠공원 일원</p>
+                                </div>
+                            </div>
+                            
+                            <div class="gomchwi-details">
+                                <span class="badge badge-accent"><i class="fa-solid fa-clover"></i> 5월의 싱그러움</span>
+                                <h3>제23회 양구 곰취축제 안내</h3>
+                                <p>매년 봄의 정취가 무르익는 5월, 청정 양구의 자연 속에서 향긋한 곰취를 직접 수확하고 맛볼 수 있는 양구의 대표 축제입니다.</p>
+                                
+                                <div class="festival-schedule-box">
+                                    <div class="sched-item">
+                                        <span class="label">축제 기간</span>
+                                        <span class="val"><strong>2026년 5월 8일 (금) ~ 5월 10일 (일) [3일간]</strong></span>
+                                    </div>
+                                    <div class="sched-item">
+                                        <span class="label">주요 행사</span>
+                                        <span class="val">현장 곰취 채취 체험, 초대형 곰취 떡메치기, 곰취 삼겹살 화로구이 존, 축하 콘서트, 곰취 푸드존</span>
+                                    </div>
+                                    <div class="sched-item">
+                                        <span class="label">이용 문의</span>
+                                        <span class="val"><i class="fa-solid fa-phone"></i> 양구문화재단 축제공연팀 (033-482-9079)</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="gomchwi-action" style="margin-top: 25px;">
+                                    <a href="#reservation" class="btn btn-primary">체험 및 텐트 사전예약</a>
+                                    <a href="#" class="btn btn-outline-dark">리플릿 다운로드 <i class="fa-solid fa-download"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tab 3: Last Festival Hot Issues -->
+                    <div class="gomchwi-tab-pane" id="gomchwi-festival-news">
+                        <div class="festival-news-header">
+                            <h3><i class="fa-solid fa-ranking-star"></i> 지난 축제 가장 핫했던 순간 TOP 3</h3>
+                            <p>수많은 관광객들의 뜨거운 성원 속에 성황리에 종료된 지난 축제의 생생한 인기 소식을 전합니다.</p>
+                        </div>
+                        
+                        <div class="news-cards-grid">
+                            <!-- Card 1 -->
+                            <div class="news-card">
+                                <div class="news-img">
+                                    <img src="images/gomchwi_dish.png" alt="삼겹살 화로구이 존">
+                                    <span class="news-badge">인기 1위</span>
+                                </div>
+                                <div class="news-body">
+                                    <span class="news-date">지난 축제 현장</span>
+                                    <h4>곰취 삼겹살 화로구이 존 인기 폭발</h4>
+                                    <p>축제장 한편에 마련된 300석 규모의 화로구이 존은 발 디딜 틈 없이 붐볐습니다. 현장에서 갓 구매한 싱싱한 곰취 잎에 노릇하게 구워진 삼겹살을 싸 먹는 향긋함에 빠져 하루에만 2톤 이상의 삼겹살이 소비되는 기록을 세웠습니다.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 2 -->
+                            <div class="news-card">
+                                <div class="news-img">
+                                    <img src="images/gomchwi_harvest.png" alt="곰취 수확 체험">
+                                    <span class="news-badge">체험 마감</span>
+                                </div>
+                                <div class="news-body">
+                                    <span class="news-date">지난 축제 현장</span>
+                                    <h4>산지 직송 곰취 채취 체험 조기 완판</h4>
+                                    <p>대암산 자락의 청정 농가에서 직접 곰취를 뜯어보는 수확 체험 프로그램이 시작 10분 만에 주말 전 회차가 매진되었습니다. 아이들과 함께 온 가족 단위 관광객들에게 자연 학습장으로 큰 극찬을 받았습니다.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 3 -->
+                            <div class="news-card">
+                                <div class="news-img">
+                                    <img src="images/gomchwi_festival.png" alt="떡메치기 행사">
+                                    <span class="news-badge">이색 행사</span>
+                                </div>
+                                <div class="news-body">
+                                    <span class="news-date">지난 축제 현장</span>
+                                    <h4>30m 초대형 곰취 떡메치기 성공</h4>
+                                    <p>축제 2일 차에 진행된 30m 길이의 초대형 곰취 떡메치기는 축제 최고의 볼거리였습니다. 양구 군민과 관광객들이 한마음으로 떡을 메치고, 완성된 고소하고 향긋한 곰취 떡은 그 자리에서 2,000여 명의 시식단에게 나누어져 큰 감동을 안겼습니다.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

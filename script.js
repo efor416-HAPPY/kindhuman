@@ -122,4 +122,37 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById(targetId).classList.add('active');
         });
     });
+
+    // --- 8. Gomchwi Center Tabs Logic ---
+    const gomchwiTabBtns = document.querySelectorAll('.gomchwi-tab-btn');
+    const gomchwiTabPanes = document.querySelectorAll('.gomchwi-tab-pane');
+
+    gomchwiTabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            gomchwiTabBtns.forEach(b => b.classList.remove('active'));
+            gomchwiTabPanes.forEach(p => p.classList.remove('active'));
+            
+            btn.classList.add('active');
+            const targetId = btn.getAttribute('data-target');
+            document.getElementById(targetId).classList.add('active');
+        });
+    });
+
+    // --- 9. Gomchwi Gallery Image Changer ---
+    window.changeGomchwiImage = function(src) {
+        const mainImg = document.getElementById('gomchwi-gallery-main-img');
+        if (mainImg) {
+            mainImg.src = src;
+        }
+        
+        const thumbs = document.querySelectorAll('.gallery-thumbs .thumb');
+        thumbs.forEach(t => {
+            // Check if source matches, resolving relative vs absolute path difference
+            if (t.src === src || (src.includes(t.getAttribute('src')))) {
+                t.classList.add('active');
+            } else {
+                t.classList.remove('active');
+            }
+        });
+    };
 });
