@@ -176,6 +176,20 @@ document.addEventListener('DOMContentLoaded', () => {
             formStatus.className = 'form-status-message';
             formStatus.textContent = '';
 
+            // Set current time for the EmailJS template variable {{time}}
+            const timeInput = document.getElementById('inquiry_time');
+            if (timeInput) {
+                const now = new Date();
+                timeInput.value = now.toLocaleString('ko-KR', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+            }
+
             // Check if EmailJS SDK is loaded
             if (typeof emailjs === 'undefined') {
                 formStatus.className = 'form-status-message error';
@@ -204,6 +218,35 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (btnText) btnText.textContent = '문의 보내기';
                     if (btnIcon) btnIcon.className = 'fa-solid fa-paper-plane';
                 });
+        });
+    }
+
+    // --- 11. Educational Notice Modal (With localStorage support) ---
+    const eduNoticeModal = document.getElementById('edu-notice-modal');
+    const closeEduNoticeBtn = document.getElementById('close-edu-notice-btn');
+    const todayCheckbox = document.getElementById('notice-today-checkbox');
+
+    if (eduNoticeModal && closeEduNoticeBtn) {
+        // Check localStorage to see if user opted out of popup today
+        const noticeHideTime = localStorage.getItem('hideNoticeTime');
+        const currentTime = new Date().getTime();
+        const oneDayMs = 24 * 60 * 60 * 1000;
+
+        // If no opt-out or opt-out has expired (older than 24 hours)
+        if (!noticeHideTime || (currentTime - parseInt(noticeHideTime) > oneDayMs)) {
+            setTimeout(() => {
+                eduNoticeModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }, 600);
+        }
+
+        closeEduNoticeBtn.addEventListener('click', () => {
+            // Save state if "Do not show today" is checked
+            if (todayCheckbox && todayCheckbox.checked) {
+                localStorage.setItem('hideNoticeTime', new Date().getTime().toString());
+            }
+            eduNoticeModal.classList.remove('active');
+            document.body.style.overflow = '';
         });
     }
 });

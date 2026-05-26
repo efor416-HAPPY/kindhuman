@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>양구군청 스마트 문서 변환기 - HWPX to PDF</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- JSZip Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    
+    <!-- html2pdf.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        /* --- Design System Variables --- */
+        :root {
+            --primary-color: #2e7d32;
+            --primary-dark: #1b5e20;
+            --primary-light: #e8f5e9;
+            --secondary-color: #0288d1;
+            
+            --bg-main: #f4f7f6;
+            --bg-card: #ffffff;
+            --text-main: #212529;
+            --text-muted: #6c757d;
+            --border-color: #dee2e6;
+            
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+            --shadow-lg: 0 16px 40px rgba(0,0,0,0.12);
+            
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+        }
+
+        /* --- Global Reset & Layout --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header (Glassmorphism) --- */
+        .header {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .back-home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: color var(--transition-fast);
+        }
+
+        .back-home-btn:hover {
+            color: var(--primary-color);
+        }
+
+        /* --- Title section --- */
+        .title-section {
+            text-align: center;
+            margin: 50px 0 35px;
+        }
+
+        .title-section h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .title-section h1 span {
+            color: var(--primary-color);
+        }
+
+        .title-section p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #e3f2fd;
+            color: var(--secondary-color);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-top: 15px;
+        }
+
+        /* --- Converter Drag & Drop Box --- */
+        .converter-box {
+            background-color: var(--bg-card);
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .upload-area {
+            border: 2px dashed #b0bec5;
+            border-radius: 15px;
+            padding: 45px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            background-color: #fafafa;
+        }
+
+        .upload-area:hover, .upload-area.dragover {
+            border-color: var(--primary-color);
+            background-color: var(--primary-light);
+        }
+
+        .upload-icon {
+            font-size: 3.5rem;
+            color: #b0bec5;
+            margin-bottom: 15px;
+            transition: color var(--transition-normal);
+        }
+
+        .upload-area:hover .upload-icon, .upload-area.dragover .upload-icon {
+            color: var(--primary-color);
+        }
+
+        .upload-area h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .upload-area p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        /* Hidden File Input */
+        #file-input {
+            display: none;
+        }
+
+        /* --- Progress Panel --- */
+        .progress-panel {
+            display: none;
+            margin-top: 25px;
+        }
+
+        .progress-panel.active {
+            display: block;
+        }
+
+        .file-info-badge {
+            background-color: #f1f8e9;
+            border: 1px solid var(--primary-light);
+            border-radius: 12px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .file-details {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .file-icon {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        .file-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .file-size {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .btn-cancel {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: color var(--transition-fast);
+        }
+
+        .btn-cancel:hover {
+            color: #d32f2f;
+        }
+
+        /* Steps progress bar */
+        .status-message {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .progress-bar-wrap {
+            height: 10px;
+            background-color: #eceff1;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            transition: width 0.4s ease;
+        }
+
+        /* --- Preview Panel --- */
+        .preview-card {
+            background-color: var(--bg-card);
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            display: none;
+            overflow: hidden;
+        }
+
+        .preview-card.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .preview-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .preview-header h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        /* The PDF preview document sheet */
+        .preview-viewport {
+            padding: 40px;
+            max-height: 500px;
+            overflow-y: auto;
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .preview-document {
+            background-color: #fff;
+            width: 100%;
+            max-width: 794px; /* A4 size proportional */
+            min-height: 600px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            padding: 50px;
+            color: #000;
+            font-family: 'Malgun Gothic', 'Noto Sans KR', sans-serif;
+            text-align: left;
+            word-break: break-all;
+        }
+
+        /* Style reset for the preview text to match A4 paper styles */
+        .preview-document p {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .preview-document table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+
+        .preview-document td {
+            border: 1px solid #777;
+            padding: 8px;
+            vertical-align: top;
+        }
+
+        .preview-actions {
+            padding: 20px 25px;
+            background-color: #f8f9fa;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        /* --- Error Message Display --- */
+        .error-message {
+            background-color: #ffebee;
+            color: #c62828;
+            border-left: 4px solid #e53935;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        /* --- Buttons Styling --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+            transition: all var(--transition-fast);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(46,125,50,0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(46,125,50,0.3);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background-color: #f0f0f0;
+            border-color: #bbb;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #0277bd;
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="logo-icon"><i class="fa-solid fa-leaf"></i></span>
+                    <span class="logo-text">양구올구양</span>
+                </a>
+            </div>
+            <a href="index.html" class="back-home-btn"><i class="fa-solid fa-arrow-left"></i> 홈으로 돌아가기</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Title section -->
+        <section class="title-section">
+            <h1>HWPX to PDF <span>무설치 변환기</span></h1>
+            <p>프로그램 설치나 가입 없이 HWPX 한글 파일을 PDF 문서로 간편하게 변환합니다.</p>
+            <div class="security-badge">
+                <i class="fa-solid fa-shield-halved"></i> 100% 안전한 기밀 보안: 모든 연산은 외부 서버 전송 없이 사용자의 컴퓨터 안에서만 수행됩니다.
+            </div>
+        </section>
+
+        <!-- Error Message Panel -->
+        <div class="error-message" id="error-panel"></div>
+
+        <!-- Converter Box -->
+        <section class="converter-box">
+            <!-- Upload Area -->
+            <div class="upload-area" id="drop-zone" onclick="triggerFileInput()">
+                <div class="upload-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                <h3>여기에 HWPX 한글 파일을 드래그 앤 드롭 하세요</h3>
+                <p>또는 영역을 클릭하여 로컬 컴퓨터에서 파일을 탐색할 수 있습니다.</p>
+                <input type="file" id="file-input" accept=".hwpx" onchange="handleFileSelect(event)">
+            </div>
+
+            <!-- Progress Panel -->
+            <div class="progress-panel" id="progress-panel">
+                <div class="file-info-badge">
+                    <div class="file-details">
+                        <div class="file-icon"><i class="fa-solid fa-file-zipper"></i></div>
+                        <div>
+                            <div class="file-name" id="display-file-name">document.hwpx</div>
+                            <div class="file-size" id="display-file-size">0.0 KB</div>
+                        </div>
+                    </div>
+                    <button class="btn-cancel" onclick="resetConverter()" title="취소"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="status-message" id="status-text">
+                    <i class="fa-solid fa-spinner fa-spin"></i> <span>변환을 준비 중입니다...</span>
+                </div>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar-fill" id="progress-bar"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preview Panel -->
+        <section class="preview-card" id="preview-card">
+            <div class="preview-header">
+                <h3>변환된 문서 미리보기 (Live Preview)</h3>
+                <span class="file-size">A4 규격 자동 포맷팅</span>
+            </div>
+            
+            <div class="preview-viewport">
+                <!-- Preview Document A4 paper mockup -->
+                <div class="preview-document" id="preview-container">
+                    <!-- Parsed HTML will be populated here -->
+                </div>
+            </div>
+
+            <div class="preview-actions">
+                <button class="btn btn-outline" onclick="resetConverter()">새 파일로 변환</button>
+                <button class="btn btn-primary btn-secondary" onclick="downloadPdf()"><i class="fa-solid fa-download"></i> PDF 다운로드</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Logical Scripts -->
+    <script>
+        // --- Drag and Drop File Handlers ---
+        const dropZone = document.getElementById("drop-zone");
+        const fileInput = document.getElementById("file-input");
+        const errorPanel = document.getElementById("error-panel");
+        let currentFile = null;
+
+        // Setup drag and drop events
+        if (dropZone) {
+            ["dragenter", "dragover"].forEach(eventName => {
+                dropZone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    dropZone.classList.add("dragover");
+                }, false);
+            });
+
+            ["dragleave", "drop"].forEach(eventName => {
+                dropZone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    dropZone.classList.remove("dragover");
+                }, false);
+            });
+
+            dropZone.addEventListener("drop", (e) => {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                if (files.length > 0) {
+                    processFile(files[0]);
+                }
+            }, false);
+        }
+
+        function triggerFileInput() {
+            fileInput.click();
+        }
+
+        function handleFileSelect(e) {
+            const files = e.target.files;
+            if (files.length > 0) {
+                processFile(files[0]);
+            }
+        }
+
+        function showError(msg) {
+            errorPanel.textContent = msg;
+            errorPanel.classList.add("active");
+            document.getElementById("progress-panel").classList.remove("active");
+            document.getElementById("preview-card").classList.remove("active");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function clearError() {
+            errorPanel.textContent = "";
+            errorPanel.classList.remove("active");
+        }
+
+        function processFile(file) {
+            clearError();
+            
+            // Check file extension
+            if (!file.name.toLowerCase().endsWith(".hwpx")) {
+                showError("❌ 지원하지 않는 형식입니다. HWPX 확장자 파일만 업로드할 수 있습니다.");
+                return;
+            }
+
+            currentFile = file;
+
+            // Update UI with file details
+            document.getElementById("display-file-name").textContent = file.name;
+            const sizeKB = (file.size / 1024).toFixed(1);
+            document.getElementById("display-file-size").textContent = `${sizeKB} KB`;
+
+            // Hide drag & drop area and show progress panel
+            dropZone.style.display = "none";
+            document.getElementById("progress-panel").classList.add("active");
+
+            // Trigger offline conversion process
+            startHwpxConversion(file);
+        }
+
+        function updateProgress(percent, statusText, iconClass = "fa-solid fa-spinner fa-spin") {
+            const bar = document.getElementById("progress-bar");
+            const text = document.getElementById("status-text");
+            if (bar) bar.style.width = `${percent}%`;
+            if (text) {
+                text.innerHTML = `<i class="${iconClass}"></i> <span>${statusText}</span>`;
+            }
+        }
+
+        function resetConverter() {
+            clearError();
+            currentFile = null;
+            fileInput.value = "";
+            
+            // Show upload area, hide progress & preview cards
+            dropZone.style.display = "block";
+            document.getElementById("progress-panel").classList.remove("active");
+            document.getElementById("preview-card").classList.remove("active");
+            document.getElementById("preview-container").innerHTML = "";
+            
+            // Reset progress bar
+            const bar = document.getElementById("progress-bar");
+            if (bar) bar.style.width = "0%";
+        }
+
+        // --- Client-Side HWPX Parser Logic ---
+        // Helper to get child elements by local name (namespace-agnostic)
+        function getChildElements(node) {
+            const elements = [];
+            if (!node || !node.childNodes) return elements;
+            for (let i = 0; i < node.childNodes.length; i++) {
+                const child = node.childNodes[i];
+                if (child.nodeType === 1) {
+                    elements.push(child);
+                }
+            }
+            return elements;
+        }
+
+        function getChildElementByLocalName(node, localName) {
+            if (!node || !node.childNodes) return null;
+            const lowerName = localName.toLowerCase();
+            for (let i = 0; i < node.childNodes.length; i++) {
+                const child = node.childNodes[i];
+                if (child.nodeType === 1 && (child.localName || "").toLowerCase() === lowerName) {
+                    return child;
+                }
+            }
+            return null;
+        }
+
+        function getChildElementsByLocalName(node, localName) {
+            const elements = [];
+            if (!node || !node.childNodes) return elements;
+            const lowerName = localName.toLowerCase();
+            for (let i = 0; i < node.childNodes.length; i++) {
+                const child = node.childNodes[i];
+                if (child.nodeType === 1 && (child.localName || "").toLowerCase() === lowerName) {
+                    elements.push(child);
+                }
+            }
+            return elements;
+        }
+
+        let binDataMap = {}; // Global/scoped image map for rendering embedded photos
+
+        async function startHwpxConversion(file) {
+            try {
+                updateProgress(20, "HWPX 패키지(ZIP) 압축 해제 중...", "fa-solid fa-file-zipper fa-bounce");
+                
+                const zip = await JSZip.loadAsync(file);
+                
+                updateProgress(40, "문서 메타데이터 및 이미지 추출 중...");
+                
+                // Extract all binary files (images) from BinData/
+                binDataMap = {};
+                const binDataFiles = Object.keys(zip.files).filter(name => 
+                    name.toLowerCase().startsWith("bindata/")
+                );
+                
+                for (const filePath of binDataFiles) {
+                    try {
+                        const fileExt = filePath.split('.').pop().toLowerCase();
+                        const mimeType = fileExt === 'png' ? 'image/png' : 
+                                         (fileExt === 'jpg' || fileExt === 'jpeg') ? 'image/jpeg' : 
+                                         fileExt === 'gif' ? 'image/gif' : 
+                                         fileExt === 'wmf' ? 'image/x-wmf' : 'image/png';
+                        
+                        const base64 = await zip.file(filePath).async("base64");
+                        const dataUrl = `data:${mimeType};base64,${base64}`;
+                        
+                        // Map by full path (lowercased) and also by file base name (lowercased, without extension)
+                        const baseName = filePath.split('/').pop().split('.')[0].toLowerCase();
+                        binDataMap[filePath.toLowerCase()] = dataUrl;
+                        binDataMap[baseName] = dataUrl;
+                    } catch (e) {
+                        console.warn("Failed to load image file: " + filePath, e);
+                    }
+                }
+
+                updateProgress(60, "section 데이터 추출 중...");
+                
+                // Search for section files in Contents/
+                const sectionFiles = Object.keys(zip.files).filter(name => 
+                    name.startsWith("Contents/section") && name.endsWith(".xml")
+                );
+                
+                if (sectionFiles.length === 0) {
+                    throw new Error("압축파일 내에서 'Contents/section0.xml'을 찾지 못했습니다. 파일 무결성을 점검해 주세요.");
+                }
+ 
+                // Sort section files (section0.xml, section1.xml, ...)
+                sectionFiles.sort((a, b) => {
+                    const numA = parseInt(a.replace(/[^0-9]/g, '')) || 0;
+                    const numB = parseInt(b.replace(/[^0-9]/g, '')) || 0;
+                    return numA - numB;
+                });
+
+                updateProgress(75, "한글 문서 마크업 구조 해석 및 돔 트리 구성 중...", "fa-solid fa-gears fa-spin");
+                
+                let compiledHtml = "";
+                
+                // Parse each section
+                for (const sectionPath of sectionFiles) {
+                    const xmlText = await zip.file(sectionPath).async("text");
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+                    
+                    compiledHtml += parseSectionDoc(xmlDoc);
+                }
+
+                updateProgress(90, "리얼타임 미리보기 생성 완료!");
+                
+                // Load parsed HTML in preview card
+                const previewContainer = document.getElementById("preview-container");
+                if (previewContainer) {
+                    previewContainer.innerHTML = compiledHtml || "<p style='color: #777; text-align:center;'>본문 텍스트가 존재하지 않는 문서입니다.</p>";
+                }
+
+                // Delay slightly for render transition feel
+                setTimeout(() => {
+                    updateProgress(100, "문서 로드 완료! 아래에서 레이아웃을 확인하세요.", "fa-solid fa-circle-check");
+                    // Change status icon color to success green
+                    document.getElementById("status-text").style.color = "var(--primary-color)";
+                    // Slide up live preview sheet
+                    document.getElementById("preview-card").classList.add("active");
+                }, 800);
+
+            } catch (err) {
+                console.error("Conversion failed:", err);
+                showError(`❌ 변환 처리 실패: ${err.message}`);
+            }
+        }
+
+        // Parse section*.xml document node to structured HTML
+        function parseSectionDoc(xmlDoc) {
+            // Find root section tag
+            const sectionNode = getChildElementByLocalName(xmlDoc, "section") || 
+                                xmlDoc.querySelector("section") || 
+                                xmlDoc.querySelector("hp\\:section") || 
+                                xmlDoc.documentElement;
+                                
+            if (!sectionNode) return "";
+
+            let html = "";
+            const paragraphs = getChildElementsByLocalName(sectionNode, "p");
+            for (const p of paragraphs) {
+                html += parseParagraph(p);
+            }
+            
+            return html;
+        }
+
+        function parseParagraph(pNode) {
+            // 1. Check paragraph alignment property
+            let align = "left";
+            const pPr = getChildElementByLocalName(pNode, "pPr");
+            if (pPr) {
+                const alignNode = getChildElementByLocalName(pPr, "align");
+                if (alignNode) {
+                    align = alignNode.getAttribute("align") || "left";
+                    if (align === "justify") align = "justify";
+                }
+            }
+            
+            // 2. Parse child runs (<hp:run>) and inline block elements
+            let paragraphHtml = "";
+            let currentTextRun = "";
+            
+            const children = getChildElements(pNode);
+            for (const child of children) {
+                const childName = (child.localName || "").toLowerCase();
+                if (childName === "run") {
+                    const runChildren = getChildElements(child);
+                    
+                    // Get character properties for styling
+                    let isBold = false;
+                    let isItalic = false;
+                    let isUnderline = false;
+                    let fontSize = null;
+                    let fontColor = null;
+                    
+                    const charPr = getChildElementByLocalName(child, "charPr");
+                    if (charPr) {
+                        isBold = charPr.getAttribute("bold") === "true" || charPr.getAttribute("weight") === "bold";
+                        isItalic = charPr.getAttribute("italic") === "true";
+                        isUnderline = charPr.getAttribute("underline") === "true" || charPr.getAttribute("underlineType") !== null;
+                        
+                        const sz = charPr.getAttribute("size");
+                        if (sz) {
+                            fontSize = (parseInt(sz) / 100) + "pt";
+                        }
+                        
+                        const textColor = charPr.getAttribute("textColor");
+                        if (textColor && textColor !== "none") {
+                            fontColor = textColor;
+                        }
+                    }
+                    
+                    for (const runChild of runChildren) {
+                        const runChildName = (runChild.localName || "").toLowerCase();
+                        
+                        if (runChildName === "t") {
+                            let text = runChild.textContent;
+                            text = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                            
+                            let style = "";
+                            if (isBold) style += "font-weight: bold; ";
+                            if (isItalic) style += "font-style: italic; ";
+                            if (isUnderline) style += "text-decoration: underline; ";
+                            if (fontSize) style += `font-size: ${fontSize}; `;
+                            if (fontColor) style += `color: ${fontColor}; `;
+                            
+                            if (style) {
+                                currentTextRun += `<span style="${style}">${text}</span>`;
+                            } else {
+                                currentTextRun += text;
+                            }
+                        } else if (runChildName === "br") {
+                            currentTextRun += "<br>";
+                        } else if (runChildName === "ctrl") {
+                            // Extract control elements (table, picture, etc.)
+                            const ctrlChildren = getChildElements(runChild);
+                            for (const ctrlChild of ctrlChildren) {
+                                const ctrlChildName = (ctrlChild.localName || "").toLowerCase();
+                                if (ctrlChildName === "tbl") {
+                                    // Flush accumulated text run before block table
+                                    if (currentTextRun.trim() || currentTextRun.includes("<br>")) {
+                                        paragraphHtml += `<p style="text-align: ${align}; margin-top: 0; margin-bottom: 12px; line-height: 1.6; font-size: 15px; min-height: 1.2em; word-break: keep-all; white-space: pre-wrap;">${currentTextRun}</p>`;
+                                        currentTextRun = "";
+                                    }
+                                    paragraphHtml += parseTable(ctrlChild);
+                                } else if (ctrlChildName === "pic") {
+                                    // Parse image element
+                                    const picHtml = parsePicture(ctrlChild);
+                                    if (picHtml) {
+                                        // Flush accumulated text run before block image
+                                        if (currentTextRun.trim() || currentTextRun.includes("<br>")) {
+                                            paragraphHtml += `<p style="text-align: ${align}; margin-top: 0; margin-bottom: 12px; line-height: 1.6; font-size: 15px; min-height: 1.2em; word-break: keep-all; white-space: pre-wrap;">${currentTextRun}</p>`;
+                                            currentTextRun = "";
+                                        }
+                                        paragraphHtml += picHtml;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // Flush remaining text
+            if (currentTextRun.trim() || currentTextRun.includes("<br>") || paragraphHtml === "") {
+                paragraphHtml += `<p style="text-align: ${align}; margin-top: 0; margin-bottom: 12px; line-height: 1.6; font-size: 15px; min-height: 1.2em; word-break: keep-all; white-space: pre-wrap;">${currentTextRun || "&nbsp;"}</p>`;
+            }
+            
+            return paragraphHtml;
+        }
+
+        function parseTable(tblNode) {
+            let tableHtml = `<table style="width: 100%; border-collapse: collapse; margin: 20px 0; border: 1.5px solid #444; font-size: 14px;">`;
+            
+            const trs = getChildElementsByLocalName(tblNode, "tr");
+            for (const tr of trs) {
+                tableHtml += `<tr>`;
+                const tcs = getChildElementsByLocalName(tr, "tc");
+                for (const tc of tcs) {
+                    // Colspan and rowspan support
+                    const colSpan = tc.getAttribute("colSpan") || tc.getAttribute("colspan");
+                    const rowSpan = tc.getAttribute("rowSpan") || tc.getAttribute("rowspan");
+                    
+                    let spanAttrs = "";
+                    if (colSpan && colSpan !== "1") spanAttrs += ` colspan="${colSpan}"`;
+                    if (rowSpan && rowSpan !== "1") spanAttrs += ` rowspan="${rowSpan}"`;
+                    
+                    // Parse cell paragraphs recursively
+                    const subList = getChildElementByLocalName(tc, "subList");
+                    let cellContent = "";
+                    if (subList) {
+                        const paragraphs = getChildElementsByLocalName(subList, "p");
+                        for (const p of paragraphs) {
+                            cellContent += parseParagraph(p);
+                        }
+                    }
+                    
+                    tableHtml += `<td${spanAttrs} style="border: 1px solid #777; padding: 10px; vertical-align: middle; background-color: #ffffff;">${cellContent || "&nbsp;"}</td>`;
+                }
+                tableHtml += `</tr>`;
+            }
+            
+            tableHtml += `</table>`;
+            return tableHtml;
+        }
+
+        function parsePicture(picNode) {
+            // Find <hp:image> inside <hp:pic>
+            // We can look at all descendants of picNode to find image tag
+            const imgNode = picNode.querySelector("image") || 
+                            picNode.querySelector("hp\\:image") || 
+                            getChildElementByLocalName(picNode, "image");
+            
+            if (imgNode) {
+                const binIDRef = imgNode.getAttribute("binIDRef") || imgNode.getAttribute("binRef") || "";
+                if (binIDRef) {
+                    const key = binIDRef.toLowerCase();
+                    // Resolve image from binDataMap using keys
+                    const dataUrl = binDataMap[key] || 
+                                    binDataMap["bindata/" + key] || 
+                                    binDataMap[key.replace("bindata", "")];
+                                    
+                    if (dataUrl) {
+                        return `<img src="${dataUrl}" style="max-width: 100%; height: auto; display: block; margin: 15px auto; border-radius: 4px; box-shadow: var(--shadow-sm);" />`;
+                    }
+                }
+            }
+            return "";
+        }
+
+        // --- PDF Generation Handler (html2pdf.js) ---
+        function downloadPdf() {
+            if (!currentFile) return;
+
+            const downloadBtn = document.querySelector(".btn-secondary");
+            const btnText = downloadBtn.innerHTML;
+            downloadBtn.disabled = true;
+            downloadBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> 컴파일 및 PDF 다운로드 중...`;
+
+            const element = document.getElementById("preview-container");
+            const pdfName = currentFile.name.replace(/\.hwpx$/i, ".pdf");
+
+            // Configure html2pdf options
+            const opt = {
+                margin:       [20, 20, 20, 20], // 20mm margin all around for professional print layout
+                filename:     pdfName,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2.5, useCORS: true, letterRendering: true }, // Higher scale for ultra-sharp vector fonts in PDF
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Trigger conversion and download
+            html2pdf().from(element).set(opt).save()
+                .then(() => {
+                    downloadBtn.disabled = false;
+                    downloadBtn.innerHTML = `<i class="fa-solid fa-circle-check"></i> 다운로드 완료!`;
+                    setTimeout(() => {
+                        downloadBtn.innerHTML = `<i class="fa-solid fa-download"></i> PDF 다운로드`;
+                    }, 2500);
+                })
+                .catch(err => {
+                    console.error("PDF generation failed:", err);
+                    alert("PDF 생성 도중 요류가 발생했습니다: " + err.message);
+                    downloadBtn.disabled = false;
+                    downloadBtn.innerHTML = `<i class="fa-solid fa-download"></i> PDF 다운로드`;
+                });
+        }
+    </script>
+</body>
+</html>

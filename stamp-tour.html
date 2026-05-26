@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>양구올구양 스마트 스탬프 투어 & 예매</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+    <!-- App Container -->
+    <div class="app-container">
+        
+        <!-- App Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <a href="index.html" class="back-home-btn"><i class="fa-solid fa-arrow-left"></i> 홈으로</a>
+            </div>
+            <div class="header-center">
+                <span class="app-logo"><i class="fa-solid fa-leaf"></i> 양구올구양</span>
+            </div>
+            <div class="header-right">
+                <button class="reset-data-btn" onclick="resetAppData()" title="앱 데이터 초기화"><i class="fa-solid fa-rotate-right"></i></button>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="app-content">
+            
+            <!-- 1. Dashboard Screen -->
+            <section class="app-screen active" id="screen-dashboard">
+                <div class="welcome-card">
+                    <div class="welcome-text">
+                        <h2>안녕하세요! 🌿</h2>
+                        <p>청정 자연 양구 여행을 시작해보세요.</p>
+                    </div>
+                </div>
+
+                <!-- Stamp Progress Card -->
+                <div class="progress-card">
+                    <h3>나의 스탬프 여행</h3>
+                    <div class="radial-progress-container">
+                        <div class="radial-progress" id="stamp-radial-progress">
+                            <span class="progress-val" id="stamp-progress-text">0 / 6</span>
+                        </div>
+                    </div>
+                    <p class="progress-desc">양구 6대 명소를 방문하고 스탬프를 찍어보세요!<br>모두 모으면 <strong>특산품 10% 할인 쿠폰</strong>이 열립니다.</p>
+                    <button class="btn btn-primary btn-block" onclick="switchTab('screen-stamps')">스탬프 지도 보기</button>
+                </div>
+
+                <!-- Quick Reservation Card -->
+                <div class="quick-booking-card">
+                    <div class="card-icon"><i class="fa-solid fa-ticket"></i></div>
+                    <div class="card-details">
+                        <h4>편리한 모바일 티켓 예매</h4>
+                        <p>양구 시티투어 및 주요 안보관광 입장권을 한 번에 예매하고 대기 없이 바로 검표하세요.</p>
+                        <button class="btn btn-secondary" onclick="switchTab('screen-booking')">예매하러 가기</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Stamp Tour Screen -->
+            <section class="app-screen" id="screen-stamps">
+                <div class="screen-title">
+                    <h2>양구 6대 명소 스탬프 투어</h2>
+                    <p>관광지에 도착하여 GPS 위치 확인 또는 QR 코드 스캔을 완료하세요.</p>
+                </div>
+
+                <!-- Stamp Grid -->
+                <div class="stamps-grid" id="stamps-grid-container">
+                    <!-- Spot 1 -->
+                    <div class="stamp-item" id="stamp-spot-1">
+                        <div class="stamp-icon-wrap">
+                            <i class="fa-solid fa-tree"></i>
+                            <div class="stamp-checked-overlay"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                        <h4>두타연</h4>
+                        <span class="stamp-status">미인증</span>
+                        <button class="btn btn-sm btn-outline" onclick="verifyStamp(1)">GPS 위치 인증</button>
+                    </div>
+                    <!-- Spot 2 -->
+                    <div class="stamp-item" id="stamp-spot-2">
+                        <div class="stamp-icon-wrap">
+                            <i class="fa-solid fa-compass"></i>
+                            <div class="stamp-checked-overlay"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                        <h4>한반도섬</h4>
+                        <span class="stamp-status">미인증</span>
+                        <button class="btn btn-sm btn-outline" onclick="verifyStamp(2)">GPS 위치 인증</button>
+                    </div>
+                    <!-- Spot 3 -->
+                    <div class="stamp-item" id="stamp-spot-3">
+                        <div class="stamp-icon-wrap">
+                            <i class="fa-solid fa-user-astronaut"></i>
+                            <div class="stamp-checked-overlay"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                        <h4>국토정중앙천문대</h4>
+                        <span class="stamp-status">미인증</span>
+                        <button class="btn btn-sm btn-outline" onclick="verifyStamp(3)">GPS 위치 인증</button>
+                    </div>
+                    <!-- Spot 4 -->
+                    <div class="stamp-item" id="stamp-spot-4">
+                        <div class="stamp-icon-wrap">
+                            <i class="fa-solid fa-seedling"></i>
+                            <div class="stamp-checked-overlay"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                        <h4>양구수목원</h4>
+                        <span class="stamp-status">미인증</span>
+                        <button class="btn btn-sm btn-outline" onclick="verifyStamp(4)">GPS 위치 인증</button>
+                    </div>
+                    <!-- Spot 5 -->
+                    <div class="stamp-item" id="stamp-spot-5">
+                        <div class="stamp-icon-wrap">
+                            <i class="fa-solid fa-palette"></i>
+                            <div class="stamp-checked-overlay"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                        <h4>박수근미술관</h4>
+                        <span class="stamp-status">미인증</span>
+                        <button class="btn btn-sm btn-outline" onclick="verifyStamp(5)">GPS 위치 인증</button>
+                    </div>
+                    <!-- Spot 6 -->
+                    <div class="stamp-item" id="stamp-spot-6">
+                        <div class="stamp-icon-wrap">
+                            <i class="fa-solid fa-whiskey-glass"></i>
+                            <div class="stamp-checked-overlay"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                        <h4>양구백자박물관</h4>
+                        <span class="stamp-status">미인증</span>
+                        <button class="btn btn-sm btn-outline" onclick="verifyStamp(6)">GPS 위치 인증</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Booking Screen -->
+            <section class="app-screen" id="screen-booking">
+                <div class="screen-title">
+                    <h2>티켓 온라인 예매</h2>
+                    <p>이용하실 관광 상품과 인원을 선택하고 간편하게 결제하세요.</p>
+                </div>
+
+                <div class="booking-form-card">
+                    <form id="app-booking-form">
+                        <!-- Ticket Category -->
+                        <div class="form-group">
+                            <label for="ticket-type">관광 상품 선택</label>
+                            <select id="ticket-type" onchange="calculatePrice()">
+                                <option value="citytour" data-price="10000">춘천역 출발 양구 시티투어 버스 (10,000원)</option>
+                                <option value="dutayeon" data-price="5000">두타연 안보 관광 입장권 (5,000원)</option>
+                                <option value="observatory" data-price="3000">국토정중앙천문대 관람권 (3,000원)</option>
+                            </select>
+                        </div>
+
+                        <!-- Date Selection -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="booking-date">이용 일자 선택</label>
+                                <input type="date" id="booking-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ticket-qty">수량 (명)</label>
+                                <input type="number" id="ticket-qty" min="1" max="10" value="1" onchange="calculatePrice()" required>
+                            </div>
+                        </div>
+
+                        <!-- Coupon Selection -->
+                        <div class="form-group">
+                            <label for="booking-coupon">할인 쿠폰 적용</label>
+                            <select id="booking-coupon" onchange="calculatePrice()">
+                                <option value="none">사용 안 함</option>
+                                <option value="welcome-discount" disabled id="opt-welcome-coupon">곰취 스탬프 완주 10% 할인 쿠폰</option>
+                            </select>
+                        </div>
+
+                        <!-- Price summary -->
+                        <div class="price-summary-box">
+                            <div class="summary-line">
+                                <span>정가 소계</span>
+                                <span id="summary-price-original">10,000원</span>
+                            </div>
+                            <div class="summary-line discount">
+                                <span>쿠폰 할인액</span>
+                                <span id="summary-price-discount">-0원</span>
+                            </div>
+                            <div class="summary-line total">
+                                <span>최종 결제 금액</span>
+                                <span id="summary-price-total">10,000원</span>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-primary btn-block" onclick="openPaymentModal()">결제 진행하기</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- 4. My Box Screen -->
+            <section class="app-screen" id="screen-mybox">
+                <div class="screen-title">
+                    <h2>나의 보관함</h2>
+                    <p>구매 완료된 모바일 예매 티켓과 사용 가능한 쿠폰 목록을 조회합니다.</p>
+                </div>
+
+                <!-- Unlocked Coupons Section -->
+                <div class="mybox-section">
+                    <h3>보유 쿠폰 <span class="badge badge-round" id="coupon-count-badge">0</span></h3>
+                    <div class="coupon-list" id="coupon-list-container">
+                        <div class="empty-state">
+                            <i class="fa-solid fa-ticket-simple"></i>
+                            <p>보유하고 있는 쿠폰이 없습니다.<br>스탬프 투어를 완주해 쿠폰을 획득해보세요!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booked Tickets Section -->
+                <div class="mybox-section" style="margin-top: 30px;">
+                    <h3>나의 예매 티켓 <span class="badge badge-round" id="ticket-count-badge">0</span></h3>
+                    <div class="ticket-list" id="ticket-list-container">
+                        <div class="empty-state">
+                            <i class="fa-solid fa-receipt"></i>
+                            <p>예매한 티켓이 없습니다.<br>티켓 예매 탭에서 상품을 구매해 주세요.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+        </main>
+
+        <!-- Sticky Bottom Navigation -->
+        <nav class="app-navbar">
+            <button class="nav-item active" id="nav-screen-dashboard" onclick="switchTab('screen-dashboard')">
+                <i class="fa-solid fa-house"></i>
+                <span>홈</span>
+            </button>
+            <button class="nav-item" id="nav-screen-stamps" onclick="switchTab('screen-stamps')">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>스탬프</span>
+            </button>
+            <button class="nav-item" id="nav-screen-booking" onclick="switchTab('screen-booking')">
+                <i class="fa-solid fa-credit-card"></i>
+                <span>예매하기</span>
+            </button>
+            <button class="nav-item" id="nav-screen-mybox" onclick="switchTab('screen-mybox')">
+                <i class="fa-solid fa-box-open"></i>
+                <span>보관함</span>
+            </button>
+        </nav>
+
+        <!-- Modal 1: GPS verification simulation overlay -->
+        <div class="modal-overlay" id="gps-modal">
+            <div class="modal-card gps-sim-card">
+                <div class="gps-icon"><i class="fa-solid fa-location-crosshairs fa-spin"></i></div>
+                <h3>GPS 위치 정보를 조회하고 있습니다...</h3>
+                <p>기기가 실제 양구 주요 관광지 근처에 수신 대기 중인지 위치 좌표를 검증합니다.</p>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar-fill" id="gps-progress-bar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 2: Success stamp collected overlay -->
+        <div class="modal-overlay" id="success-stamp-modal">
+            <div class="modal-card success-stamp-card">
+                <div class="success-icon"><i class="fa-solid fa-certificate"></i></div>
+                <h2 id="success-spot-name">두타연</h2>
+                <h3>스탬프 인증 성공!</h3>
+                <p>관광지 근처 GPS 동기화가 확인되어 스탬프가 성공적으로 적립되었습니다.</p>
+                <button class="btn btn-primary" onclick="closeSuccessStampModal()">확인</button>
+            </div>
+        </div>
+
+        <!-- Modal 3: Payment simulation overlay -->
+        <div class="modal-overlay" id="payment-modal">
+            <div class="modal-card payment-card">
+                <div class="modal-close" onclick="closePaymentModal()">&times;</div>
+                <h3>신용카드 간편 결제</h3>
+                <p class="payment-amount">결제 금액: <span id="payment-modal-price">10,000</span>원</p>
+                
+                <form id="payment-form" onsubmit="processMockPayment(event)">
+                    <div class="form-group">
+                        <label for="card-num">카드 번호</label>
+                        <input type="text" id="card-num" placeholder="0000-0000-0000-0000" pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="card-expiry">만료일 (MM/YY)</label>
+                            <input type="text" id="card-expiry" placeholder="MM/YY" pattern="[0-9]{2}/[0-9]{2}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="card-cvc">CVC</label>
+                            <input type="password" id="card-cvc" placeholder="3자리" pattern="[0-9]{3}" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" id="btn-pay-submit">결제 승인 요청</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal 4: Ticket Barcode Overlay -->
+        <div class="modal-overlay" id="barcode-modal">
+            <div class="modal-card barcode-card">
+                <div class="modal-close" onclick="closeBarcodeModal()">&times;</div>
+                <h3 id="barcode-modal-title">시티투어 입장권</h3>
+                <p class="barcode-modal-date" id="barcode-modal-date">2026-05-26 | 1명</p>
+                <div class="barcode-wrapper">
+                    <!-- Dynamic mock barcode rendering -->
+                    <div class="mock-barcode-lines" id="mock-barcode-lines"></div>
+                    <div class="mock-barcode-number" id="mock-barcode-number">YG-1779-8829</div>
+                </div>
+                <p class="barcode-info-text"><i class="fa-solid fa-info-circle"></i> 관광지 매표소 또는 시티투어 버스 탑승 시 직원에게 위 바코드를 제시해 주세요.</p>
+                <button class="btn btn-secondary btn-block" onclick="closeBarcodeModal()">닫기</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JS Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>

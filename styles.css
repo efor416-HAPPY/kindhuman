@@ -298,7 +298,7 @@ section {
     width: 100%;
     height: 100%;
     background-color: #333; /* Fallback */
-    background-image: url('images/new_hero_bg_1779167807430.png');
+    background-image: url('images/yanggu_hero_new.png');
     background-size: cover;
     background-position: center;
     z-index: -2;
@@ -1802,4 +1802,129 @@ section {
     color: var(--secondary-color);
     width: 14px;
     text-align: center;
+}
+
+/* --- Premium Educational Notice Modal --- */
+.edu-notice-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.edu-notice-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.edu-notice-content {
+    background: var(--white);
+    width: 90%;
+    max-width: 450px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.edu-notice-modal.active .edu-notice-content {
+    transform: scale(1);
+}
+
+.edu-notice-header {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+    color: var(--white);
+    padding: 24px;
+    text-align: center;
+}
+
+.edu-notice-header i {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.edu-notice-header h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.edu-notice-body {
+    padding: 30px 24px;
+    text-align: center;
+    background-color: var(--white);
+}
+
+.edu-notice-body p {
+    font-size: 1.05rem;
+    color: var(--text-main);
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.edu-notice-body p strong {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.edu-notice-body .sub-text {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 0;
+}
+
+.edu-notice-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-alt);
+    padding: 16px 24px;
+    border-top: 1px solid #eee;
+}
+
+.notice-cookie-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    user-select: none;
+}
+
+.notice-cookie-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+
+.edu-notice-footer .close-btn {
+    background-color: var(--text-main);
+    color: var(--white);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.edu-notice-footer .close-btn:hover {
+    background-color: #444;
+    transform: translateY(-1px);
 }
